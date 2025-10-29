@@ -2,13 +2,7 @@
 import ollama from 'ollama';
 import Typesense from 'typesense';
 import { config } from './config';
-
-const documents = [
-  { text: 'The sky is blue.' },
-  { text: 'The ocean is vast and deep.' },
-  { text: 'A large, open expanse of water.' },
-  { text: 'Birds are flying in the bright blue sky.' },
-];
+import documents from '../data/corpus';
 
 const typesenseClient = new Typesense.Client({
   nodes: [
