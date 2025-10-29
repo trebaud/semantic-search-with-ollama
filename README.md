@@ -4,8 +4,8 @@
 
 ## Prerequisites
 
-- [Ollama](https://ollama.ai/) running locally with `nomic-embed-text` model
-- [Typesense](https://typesense.org/) server running on `localhost:8108`
+- [Ollama](https://ollama.ai/)
+- [Typesense](https://typesense.org/)
 
 ## Installation
 
@@ -18,7 +18,7 @@ bun install
 ### Setup
 Create collection and index sample documents:
 ```bash
-bun run setup
+bun setup
 ```
 
 ### Search
@@ -33,5 +33,3 @@ bun search <query> --pretty
 - `bun run create-collection` - Create Typesense collection
 - `bun run index-documents` - Index documents with embeddings
 - `bun run list-documents` - List indexed documents
-
-Built with [Bun](https://bun.sh) for speed.
