@@ -19,15 +19,19 @@ async function semanticSearch(query: string) {
     prompt: query,
   });
 
-  const searchResults = await typesenseClient.collections('documents').documents().search({
-    q: '*',
-    vector_query: 'embedding:[' + embedding.join(',') + ']',
-    per_page: 5,
-  });
+  const searchResults = await typesenseClient.multiSearch.perform({
+    searches: [{
+      collection: 'documents',
+      q: '*',
+      vector_query: 'embedding:[' + embedding.join(',') + ']',
+      per_page: 5,
+    }]
+  }) as { results: { hits: any[] }[] };
 
   console.log('Search results for:', query);
-  console.log(searchResults.hits);
+  console.log(searchResults.results[0].hits);
 }
 
 // Example search query
-semanticSearch('a water body');
+const query = process.argv[2] || 'a water body';
+semanticSearch(query);

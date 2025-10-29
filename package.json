@@ -16,6 +16,8 @@
   "scripts": {
     "create-collection": "bun run src/create-collection.ts",
     "index-documents": "bun run src/index-documents.ts",
-    "semantic-search": "bun run src/semantic-search.ts"
+    "list-documents": "bun run src/list-documents.ts",
+    "setup": "bun run create-collection && bun run index-documents",
+    "search": "bun run src/semantic-search.ts"
   }
 }
