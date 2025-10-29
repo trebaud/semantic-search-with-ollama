@@ -1,0 +1,21 @@
+{
+  "name": "semantic-search-ollama",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@types/node": "^24.9.2",
+    "ollama": "^0.6.0",
+    "typesense": "^2.1.0"
+  },
+  "scripts": {
+    "create-collection": "bun run src/create-collection.ts",
+    "index-documents": "bun run src/index-documents.ts",
+    "semantic-search": "bun run src/semantic-search.ts"
+  }
+}
