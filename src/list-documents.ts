@@ -1,15 +1,16 @@
 // src/list-documents.ts
 import Typesense from 'typesense';
+import { config } from './config';
 
 const typesenseClient = new Typesense.Client({
   nodes: [
     {
-      host: 'localhost',
-      port: 8108,
+      host: config.typesenseHost,
+      port: config.typesensePort,
       protocol: 'http',
     },
   ],
-  apiKey: 'xyz',
+  apiKey: config.typesenseApiKey,
 });
 
 async function listDocuments() {

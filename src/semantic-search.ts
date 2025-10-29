@@ -1,22 +1,23 @@
 // src/semantic-search.ts
 import ollama from 'ollama';
 import Typesense from 'typesense';
+import { config } from './config';
 
 const typesenseClient = new Typesense.Client({
   nodes: [
     {
-      host: 'localhost',
-      port: 8108,
+      host: config.typesenseHost,
+      port: config.typesensePort,
       protocol: 'http',
     },
   ],
-  apiKey: 'xyz',
+  apiKey: config.typesenseApiKey,
 });
 
 async function semanticSearch(query: string, pretty: boolean = false) {
   try {
     const { embedding } = await ollama.embeddings({
-      model: 'embeddinggemma',
+      model: config.embeddingModel,
       prompt: query,
     });
 
@@ -26,7 +27,7 @@ async function semanticSearch(query: string, pretty: boolean = false) {
       searches: [{
         collection: 'documents',
         q: '*',
-        vector_query: 'embedding:([' + embedding.join(',') + '], k:5)',
+        vector_query: 'embedding:([' + embedding.join(',') + '], k:3, distance_threshold:1.0)',
         per_page: 5,
       }]
     }) as { results: { hits: any[] }[] };

@@ -1,5 +1,6 @@
 // src/create-collection.ts
 import Typesense from 'typesense';
+import { config } from './config';
 
 interface CollectionSchema {
   name: string;
@@ -13,12 +14,12 @@ interface CollectionSchema {
 const client = new Typesense.Client({
   nodes: [
     {
-      host: 'localhost', // or your Typesense host
-      port: 8108,
+      host: config.typesenseHost,
+      port: config.typesensePort,
       protocol: 'http',
     },
   ],
-  apiKey: 'xyz', // your Typesense API key
+  apiKey: config.typesenseApiKey,
 });
 
 const schema: CollectionSchema = {

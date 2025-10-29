@@ -1,6 +1,7 @@
 // src/index-documents.ts
 import ollama from 'ollama';
 import Typesense from 'typesense';
+import { config } from './config';
 
 const documents = [
   { text: 'The sky is blue.' },
@@ -12,19 +13,19 @@ const documents = [
 const typesenseClient = new Typesense.Client({
   nodes: [
     {
-      host: 'localhost',
-      port: 8108,
+      host: config.typesenseHost,
+      port: config.typesensePort,
       protocol: 'http',
     },
   ],
-  apiKey: 'xyz',
+  apiKey: config.typesenseApiKey,
 });
 
 async function addDocuments(documents: { text: string }[]) {
   const documentsWithEmbeddings = await Promise.all(
     documents.map(async (doc) => {
       const { embedding } = await ollama.embeddings({
-        model: 'embeddinggemma',
+        model: config.embeddingModel,
         prompt: doc.text,
       });
       return { ...doc, embedding };
