@@ -6,6 +6,7 @@ interface CollectionSchema {
   fields: {
     name: string;
     type: 'string' | 'int32' | 'int64' | 'float' | 'bool' | 'geopoint' | 'string[]' | 'int32[]' | 'int64[]' | 'float[]' | 'bool[]' | 'auto' | 'string*' | 'image';
+    num_dim?: number;
   }[];
 }
 
@@ -24,7 +25,7 @@ const schema: CollectionSchema = {
   name: 'documents',
   fields: [
     { name: 'text', type: 'string' },
-    { name: 'embedding', type: 'float[]' },
+    { name: 'embedding', type: 'float[]', num_dim: 768 },
   ],
 };
 
