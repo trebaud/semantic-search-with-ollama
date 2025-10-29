@@ -19,7 +19,7 @@ async function generateEmbedding(query: string): Promise<number[]> {
 async function performSearch(embedding: number[]): Promise<SearchResult> {
   const searchResults = await typesenseClient.multiSearch.perform({
     searches: [{
-      collection: 'documents',
+      collection: config.collectionName,
       q: '*',
       vector_query: `embedding:([${embedding.join(',')}], k:3, distance_threshold:1.0)`,
       per_page: 5,

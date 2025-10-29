@@ -1,6 +1,7 @@
 // src/create-collection.ts
 import { createTypesenseClient } from './client';
 import { logInfo, logSuccess, logError } from './logger';
+import { config } from './config';
 
 interface CollectionSchema {
   name: string;
@@ -14,7 +15,7 @@ interface CollectionSchema {
 const client = createTypesenseClient();
 
 const schema: CollectionSchema = {
-  name: 'documents',
+  name: config.collectionName,
   fields: [
     { name: 'text', type: 'string' },
     { name: 'embedding', type: 'float[]', num_dim: 768 },

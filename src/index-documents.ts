@@ -19,7 +19,7 @@ async function addDocuments(documents: Document[]) {
     })
   );
 
-  await typesenseClient.collections('documents').documents().import(documentsWithEmbeddings);
+  await typesenseClient.collections(config.collectionName).documents().import(documentsWithEmbeddings);
   logSuccess('Documents indexed successfully.');
 }
 
