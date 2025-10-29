@@ -55,5 +55,5 @@ async function semanticSearch(query: string, pretty: boolean = false) {
 // Example search query
 const args = process.argv.slice(2);
 const pretty = args.includes('--pretty');
-const query = args.filter(arg => arg !== '--pretty')[0] || 'a water body';
+const query = args.filter(arg => arg !== '--pretty').join(' ') || 'a water body';
 semanticSearch(query, pretty);
