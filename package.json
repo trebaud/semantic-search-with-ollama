@@ -14,6 +14,7 @@
     "typesense": "^2.1.0"
   },
   "scripts": {
+    "typecheck": "tsc --noEmit",
     "create-collection": "bun run src/create-collection.ts",
     "index-documents": "bun run src/index-documents.ts",
     "list-documents": "bun run src/list-documents.ts",

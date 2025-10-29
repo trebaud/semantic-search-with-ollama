@@ -4,6 +4,7 @@ import { createTypesenseClient } from './client';
 import { config } from './config';
 import type { SearchResult } from './types';
 import { logInfo, logError } from './logger';
+import { parseSearchCliArgs } from './utils';
 
 const typesenseClient = createTypesenseClient();
 
@@ -57,13 +58,5 @@ async function semanticSearch(query: string, pretty: boolean = false) {
   }
 }
 
-function parseCliArgs(): { query: string; pretty: boolean } {
-  const args = process.argv.slice(2);
-  const pretty = args.includes('--pretty');
-  const query = args.filter(arg => arg !== '--pretty').join(' ') || 'a water body';
-  return { query, pretty };
-}
-
-// Example search query
-const { query, pretty } = parseCliArgs();
+const { query, pretty } = parseSearchCliArgs();
 semanticSearch(query, pretty);

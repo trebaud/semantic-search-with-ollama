@@ -13,3 +13,8 @@ export interface SearchResult {
     hits: SearchHit[];
   }[];
 }
+
+export type CliArgs = {
+  query: string;
+  pretty: boolean;
+};
