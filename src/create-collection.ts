@@ -1,6 +1,6 @@
 // src/create-collection.ts
-import Typesense from 'typesense';
-import { config } from './config';
+import { createTypesenseClient } from './client';
+import { logInfo, logSuccess, logError } from './logger';
 
 interface CollectionSchema {
   name: string;
@@ -11,16 +11,7 @@ interface CollectionSchema {
   }[];
 }
 
-const client = new Typesense.Client({
-  nodes: [
-    {
-      host: config.typesenseHost,
-      port: config.typesensePort,
-      protocol: 'http',
-    },
-  ],
-  apiKey: config.typesenseApiKey,
-});
+const client = createTypesenseClient();
 
 const schema: CollectionSchema = {
   name: 'documents',
@@ -30,16 +21,20 @@ const schema: CollectionSchema = {
   ],
 };
 
-async function createCollection() {
+async function createCollection(collectionSchema: CollectionSchema) {
   try {
     // Drop collection if it already exists
-    await client.collections('documents').delete();
-    console.log('Existing collection deleted.');
+    await client.collections(collectionSchema.name).delete();
+    logInfo('Existing collection deleted.');
   } catch (error) {
     // Ignore error if collection does not exist
   }
-  await client.collections().create(schema);
-  console.log('Collection created successfully.');
+  try {
+    await client.collections().create(collectionSchema);
+    logSuccess('Collection created successfully.');
+  } catch (error) {
+    logError('Error creating collection:', error);
+  }
 }
 
-createCollection();
+createCollection(schema);

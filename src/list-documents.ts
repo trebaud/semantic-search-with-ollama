@@ -1,25 +1,16 @@
 // src/list-documents.ts
-import Typesense from 'typesense';
-import { config } from './config';
+import { createTypesenseClient } from './client';
+import { logInfo, logError } from './logger';
 
-const typesenseClient = new Typesense.Client({
-  nodes: [
-    {
-      host: config.typesenseHost,
-      port: config.typesensePort,
-      protocol: 'http',
-    },
-  ],
-  apiKey: config.typesenseApiKey,
-});
+const typesenseClient = createTypesenseClient();
 
 async function listDocuments() {
   try {
     const documents = await typesenseClient.collections('documents').documents().export();
-    console.log('All indexed documents:');
-    console.log(documents);
+    logInfo('All indexed documents:');
+    logInfo(documents);
   } catch (error) {
-    console.error('Error listing documents:', error);
+    logError('Error listing documents:', error);
   }
 }
 

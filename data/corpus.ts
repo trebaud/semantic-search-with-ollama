@@ -1,4 +1,6 @@
-const documents = [
+import type { Document } from '../src/types';
+
+const documents: Document[] = [
   { text: 'The theory of relativity fundamentally changed our understanding of space and time.' },
   { text: 'Developing secure API endpoints is critical for data privacy.' },
   { text: 'The subtle difference between a simile and a metaphor in poetry.' },

@@ -1,21 +1,14 @@
 // src/index-documents.ts
 import ollama from 'ollama';
-import Typesense from 'typesense';
+import { createTypesenseClient } from './client';
 import { config } from './config';
+import type { Document } from './types';
+import { logSuccess } from './logger';
 import documents from '../data/corpus';
 
-const typesenseClient = new Typesense.Client({
-  nodes: [
-    {
-      host: config.typesenseHost,
-      port: config.typesensePort,
-      protocol: 'http',
-    },
-  ],
-  apiKey: config.typesenseApiKey,
-});
+const typesenseClient = createTypesenseClient();
 
-async function addDocuments(documents: { text: string }[]) {
+async function addDocuments(documents: Document[]) {
   const documentsWithEmbeddings = await Promise.all(
     documents.map(async (doc) => {
       const { embedding } = await ollama.embeddings({
@@ -27,7 +20,7 @@ async function addDocuments(documents: { text: string }[]) {
   );
 
   await typesenseClient.collections('documents').documents().import(documentsWithEmbeddings);
-  console.log('Documents indexed successfully.');
+  logSuccess('Documents indexed successfully.');
 }
 
 addDocuments(documents);
